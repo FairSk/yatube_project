@@ -1,5 +1,5 @@
-from django.db import models
 from django.contrib.auth import get_user_model
+from django.db import models
 
 User = get_user_model()
 
@@ -12,3 +12,16 @@ class Post(models.Model):
         on_delete=models.CASCADE,
         related_name='posts'
     )
+    group = models.ForeignKey(
+        'Group',
+        blank=True,
+        null=True,
+        on_delete=models.CASCADE,
+        related_name='posts'
+    )
+
+
+class Group(models.Model):
+    title = models.CharField(max_length=200, unique=True)
+    slug = models.SlugField(max_length=200, unique=True)
+    description = models.TextField()
